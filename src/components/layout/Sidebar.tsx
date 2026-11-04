@@ -269,7 +269,7 @@ export const Sidebar: React.FC = () => {
         <div className="flex items-center space-x-2.5 px-2 py-1 bg-slate-200/30 dark:bg-[#14243B]/60 rounded-lg border border-slate-300/40 dark:border-[#223854]/60">
           <div className="relative">
             <img
-              src={resumeData.profile.avatarUrl || '/shaheen.jpg'}
+              src={resumeData.profile.avatarUrl || `${import.meta.env.BASE_URL}shaheen.jpg`}
               alt={resumeData.profile.fullName || 'Mohammed Shaheen'}
               className="w-8 h-8 rounded-full object-cover ring-2 ring-[#FF6F3C]"
             />

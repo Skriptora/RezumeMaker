@@ -72,7 +72,7 @@ export const MOCK_RESUME_DATA: ResumeData = {
     linkedin: 'https://linkedin.com/in/mohammed-shaheen-dev',
     summary:
       'Product-minded Senior Full-Stack Engineer originally from Ernakulam, Kerala, currently based in Bangalore with 6+ years of experience designing scalable distributed web platforms, high-throughput cloud microservices, and reactive user interfaces. Proficient in TypeScript, React, Next.js, Node.js, Go, and AWS cloud infrastructure with a deep commitment to clean architecture and developer ergonomics.',
-    avatarUrl: '/shaheen.jpg',
+    avatarUrl: `${import.meta.env.BASE_URL}shaheen.jpg`,
     industry: 'software',
     cadTools: 'AutoCAD Electrical, MATLAB & Simulink, IoT Embedded Firmware',
     engineeringLicense: 'Chartered Engineer (IEI India #CE-94021) | IEEE Member',
