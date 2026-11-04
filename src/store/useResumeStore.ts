@@ -19,14 +19,21 @@ import type {
   CustomSectionFormat,
   CustomSectionItem,
   CustomSectionData,
+  WebEditorViewport,
+  WebEditorMode,
+  WebEditorPageId,
+  CustomWebComponent,
+  ElementCustomStyle,
 } from '../types/resume'
 import {
   DEFAULT_SECTIONS,
   INITIAL_RESUME_DATA,
+  AXIOM_7_MOCK_DATA,
   INITIAL_PORTFOLIO_CARDS,
+  INITIAL_WEB_COMPONENTS,
 } from '../data/mockData'
 
-export { DEFAULT_SECTIONS, INITIAL_RESUME_DATA, INITIAL_PORTFOLIO_CARDS }
+export { DEFAULT_SECTIONS, INITIAL_RESUME_DATA, AXIOM_7_MOCK_DATA, INITIAL_PORTFOLIO_CARDS, INITIAL_WEB_COMPONENTS }
 
 interface ResumeStoreState {
   // Navigation
@@ -99,6 +106,13 @@ interface ResumeStoreState {
   theme: ResumeTheme
   updateTheme: (partialTheme: Partial<ResumeTheme>) => void
 
+  // Selection & Element Styling
+  selectedElementId: string | null
+  setSelectedElementId: (id: string | null) => void
+  elementStyles: Record<string, ElementCustomStyle>
+  updateElementStyle: (elementId: string, style: Partial<ElementCustomStyle>) => void
+  resetElementStyle: (elementId: string) => void
+
   // Visual Portfolio Cards & Animation
   portfolioCards: PortfolioProjectCard[]
   portfolioAnimation: PortfolioAnimationType
@@ -109,6 +123,25 @@ interface ResumeStoreState {
   updatePortfolioCard: (id: string, card: Partial<PortfolioProjectCard>) => void
   deletePortfolioCard: (id: string) => void
   reorderPortfolioCards: (newCards: PortfolioProjectCard[]) => void
+
+  // Web Editor System (Multi-page, dynamic components, responsive viewports, typography)
+  webEditorViewport: WebEditorViewport
+  setWebEditorViewport: (viewport: WebEditorViewport) => void
+  webEditorMode: WebEditorMode
+  setWebEditorMode: (mode: WebEditorMode) => void
+  webEditorCurrentPage: WebEditorPageId
+  setWebEditorCurrentPage: (page: WebEditorPageId) => void
+  webEditorFont: string
+  setWebEditorFont: (font: string) => void
+  customFonts: string[]
+  addCustomFont: (fontName: string) => void
+  webComponents: CustomWebComponent[]
+  addWebComponent: (comp: Omit<CustomWebComponent, 'id'>) => string
+  updateWebComponent: (id: string, updates: Partial<CustomWebComponent>) => void
+  deleteWebComponent: (id: string) => void
+  reorderWebComponents: (newComponents: CustomWebComponent[]) => void
+  isWebEditorEditMode: boolean
+  toggleWebEditorEditMode: () => void
 
   // Bulk reset
   resetAllData: () => void
@@ -559,6 +592,34 @@ export const useResumeStore = create<ResumeStoreState>()(
           theme: { ...state.theme, ...partialTheme },
         })),
 
+      selectedElementId: null,
+      setSelectedElementId: (id) => set({ selectedElementId: id }),
+      elementStyles: {},
+      updateElementStyle: (elementId, style) =>
+        set((state) => {
+          const current = state.elementStyles[elementId] || {}
+          const updated = { ...current }
+          for (const [key, value] of Object.entries(style)) {
+            if (value === undefined || value === '') {
+              delete (updated as Record<string, unknown>)[key]
+            } else {
+              (updated as Record<string, unknown>)[key] = value
+            }
+          }
+          return {
+            elementStyles: {
+              ...state.elementStyles,
+              [elementId]: updated,
+            },
+          }
+        }),
+      resetElementStyle: (elementId) =>
+        set((state) => {
+          const next = { ...state.elementStyles }
+          delete next[elementId]
+          return { elementStyles: next }
+        }),
+
       portfolioCards: INITIAL_PORTFOLIO_CARDS,
       portfolioAnimation: 'stagger',
       setPortfolioAnimation: (anim) => set({ portfolioAnimation: anim }),
@@ -583,15 +644,86 @@ export const useResumeStore = create<ResumeStoreState>()(
         })),
       reorderPortfolioCards: (newCards) => set({ portfolioCards: newCards }),
 
+      // Web Editor System
+      webEditorViewport: 'desktop',
+      setWebEditorViewport: (viewport) => set({ webEditorViewport: viewport }),
+      webEditorMode: 'multi-page',
+      setWebEditorMode: (mode) => set({ webEditorMode: mode }),
+      webEditorCurrentPage: 'home',
+      setWebEditorCurrentPage: (page) => set({ webEditorCurrentPage: page }),
+      webEditorFont: 'Courier Prime',
+      setWebEditorFont: (font) => set({ webEditorFont: font }),
+      customFonts: [
+        'Courier Prime',
+        'Special Elite',
+        'Space Grotesk',
+        'IBM Plex Mono',
+        'Syne',
+        'Cinzel',
+      ],
+      addCustomFont: (fontName) => {
+        const cleanName = fontName.trim()
+        if (!cleanName) return
+        if (typeof document !== 'undefined') {
+          const fontId = `custom-font-${cleanName.replace(/\s+/g, '-').toLowerCase()}`
+          if (!document.getElementById(fontId)) {
+            const link = document.createElement('link')
+            link.id = fontId
+            link.rel = 'stylesheet'
+            link.href = `https://fonts.googleapis.com/css2?family=${cleanName.replace(/\s+/g, '+')}:ital,wght@0,400;0,600;0,700;1,400&display=swap`
+            document.head.appendChild(link)
+          }
+        }
+        set((state) => ({
+          customFonts: state.customFonts.includes(cleanName)
+            ? state.customFonts
+            : [...state.customFonts, cleanName],
+          webEditorFont: cleanName,
+        }))
+      },
+      webComponents: INITIAL_WEB_COMPONENTS,
+      addWebComponent: (comp) => {
+        const id = `web-comp-${Date.now()}`
+        set((state) => ({
+          webComponents: [...state.webComponents, { ...comp, id }],
+        }))
+        return id
+      },
+      updateWebComponent: (id, updates) =>
+        set((state) => ({
+          webComponents: state.webComponents.map((c) =>
+            c.id === id ? { ...c, ...updates } : c
+          ),
+        })),
+      deleteWebComponent: (id) =>
+        set((state) => ({
+          webComponents: state.webComponents.filter((c) => c.id !== id),
+        })),
+      reorderWebComponents: (newComponents) => set({ webComponents: newComponents }),
+      isWebEditorEditMode: true,
+      toggleWebEditorEditMode: () =>
+        set((state) => ({ isWebEditorEditMode: !state.isWebEditorEditMode })),
+
       resetAllData: () =>
         set({
+          selectedElementId: null,
+          elementStyles: {},
           sections: DEFAULT_SECTIONS,
           resumeData: INITIAL_RESUME_DATA,
           portfolioCards: INITIAL_PORTFOLIO_CARDS,
+          webComponents: INITIAL_WEB_COMPONENTS,
+          webEditorViewport: 'desktop',
+          webEditorMode: 'multi-page',
+          webEditorCurrentPage: 'home',
+          webEditorFont: 'Courier Prime',
+          isWebEditorEditMode: true,
         }),
     }),
     {
-      name: 'rezumemaker-storage-v4',
+      name: 'rezumemaker-storage',
     }
   )
 )
+
+export const useStore = useResumeStore
+export default useResumeStore

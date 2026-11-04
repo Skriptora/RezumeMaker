@@ -7,7 +7,6 @@ export const Header: React.FC = () => {
   const {
     activeTab,
     setActiveTab,
-    sections,
     theme,
     resumeData,
     portfolioCards,
@@ -32,7 +31,6 @@ export const Header: React.FC = () => {
   }
 
   const currentInfo = tabLabels[activeTab] || tabLabels.builder
-  const activeCount = sections.filter((s) => s.isEnabled).length
 
   const handlePrint = () => {
     window.print()
@@ -72,32 +70,22 @@ export const Header: React.FC = () => {
   }
 
   return (
-    <header className="sticky top-0 z-20 bg-[#FAF6EC]/90 dark:bg-[#0D1B2A]/90 backdrop-blur-md border-b border-slate-300 dark:border-[#223854] px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-colors duration-300 relative">
-      {/* Asymmetric retro gradient underline extending from left edge to center */}
-      <div
-        className="absolute bottom-0 left-0 w-7/12 h-[2.5px] bg-gradient-to-r from-[#FF6F3C] via-[#F2B705] to-transparent pointer-events-none"
-        aria-hidden="true"
-      />
-
-      <div className="text-left">
-        <div className="flex items-center space-x-2.5">
-          <h1 className="text-lg font-display font-bold tracking-tight text-slate-900 dark:text-[#F2EBD7]">
+    <header className="sticky top-0 z-20 bg-[#E4DAC7]/90 dark:bg-[#121316]/85 backdrop-blur-xl border-b border-[#B2A487]/80 dark:border-[#282A33]/80 px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-colors duration-300 relative shadow-[0_4px_20px_rgba(0,0,0,0.08)] min-w-0">
+      <div className="text-left min-w-0 flex-1">
+        <div className="flex items-center space-x-2.5 min-w-0">
+          <h1 className="text-lg font-display font-bold tracking-tight text-[#0A0B0E] dark:text-[#F7F4EB] truncate">
             {currentInfo.title}
           </h1>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#FF6F3C]/15 text-[#FF6F3C] border border-[#FF6F3C]/30 flex items-center space-x-1.5 font-bold">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6F3C] animate-pulse" />
-            <span>✦ {activeCount} Active</span>
-          </span>
         </div>
-        <p className="text-xs font-body text-slate-600 dark:text-[#A3B4C8] mt-0.5">
+        <p className="text-xs font-body text-[#2C2D33] dark:text-[#A8A49A] mt-0.5 truncate" title={currentInfo.subtitle}>
           {currentInfo.subtitle}
         </p>
       </div>
 
-      <div className="flex items-center space-x-2.5">
+      <div className="flex items-center space-x-2.5 flex-shrink-0">
         <button
           onClick={() => setActiveTab('templates')}
-          className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-slate-200/50 dark:bg-[#14243B] hover:bg-slate-200 dark:hover:bg-[#1B3150] border border-slate-300 dark:border-[#223854] text-slate-800 dark:text-[#F2EBD7] transition-colors duration-200 active:scale-[0.98] cursor-pointer"
+          className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-[#D8CEBA]/80 dark:bg-[#181A1F] hover:bg-[#C8BD9F] dark:hover:bg-[#22252D] border border-[#B2A487] dark:border-[#282A33] text-[#0A0B0E] dark:text-[#F7F4EB] transition-colors duration-200 active:scale-[0.98] cursor-pointer"
         >
           <Palette className="w-3.5 h-3.5 text-[#FF6F3C]" />
           <span className="capitalize">{theme.templateId} Theme</span>
@@ -105,7 +93,7 @@ export const Header: React.FC = () => {
 
         <button
           onClick={handleExportJSON}
-          className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-slate-200/50 dark:bg-[#14243B] hover:bg-slate-200 dark:hover:bg-[#1B3150] border border-slate-300 dark:border-[#223854] text-slate-800 dark:text-[#F2EBD7] transition-colors duration-200 active:scale-[0.98] cursor-pointer"
+          className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-[#D8CEBA]/80 dark:bg-[#181A1F] hover:bg-[#C8BD9F] dark:hover:bg-[#22252D] border border-[#B2A487] dark:border-[#282A33] text-[#0A0B0E] dark:text-[#F7F4EB] transition-colors duration-200 active:scale-[0.98] cursor-pointer"
           title="Export resume state as JSON"
         >
           <Download className="w-3.5 h-3.5 text-[#5D8A8A]" />
@@ -116,7 +104,7 @@ export const Header: React.FC = () => {
           <button
             onClick={handleExportZip}
             disabled={isExportingZip}
-            className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold bg-[#FF6F3C] hover:bg-[#FF6F3C]/90 text-[#F2EBD7] shadow-lg shadow-[#FF6F3C]/20 transition-all duration-200 active:scale-[0.98] cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold bg-[#FF6F3C] hover:bg-[#FF6F3C]/90 text-[#121316] shadow-lg shadow-[#FF6F3C]/20 transition-all duration-200 active:scale-[0.98] cursor-pointer disabled:opacity-50"
           >
             {isExportingZip ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin" />

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import {
   FileText,
-  Sparkles,
   LayoutTemplate,
+  Globe,
   Sun,
   Moon,
   ChevronDown,
@@ -14,6 +14,7 @@ import {
 import { useResumeStore } from '../../store/useResumeStore'
 import type { TabType } from '../../types/resume'
 import { CreateCustomSectionModal } from '../builder/modals/CreateCustomSectionModal'
+import { RezumeMakerLogo } from '../brand/RezumeMakerLogo'
 
 export const Sidebar: React.FC = () => {
   const {
@@ -25,7 +26,6 @@ export const Sidebar: React.FC = () => {
     toggleSection,
     moveSection,
     resetSectionsToDefault,
-    resumeData,
   } = useResumeStore()
 
   const [sectionsExpanded, setSectionsExpanded] = useState(true)
@@ -42,8 +42,7 @@ export const Sidebar: React.FC = () => {
     {
       id: 'canvas',
       label: 'Visual Portfolio',
-      icon: <Sparkles className="w-4 h-4 text-[#F2B705]" />,
-      badge: '✦ 2080 Studio',
+      icon: <Globe className="w-4 h-4 text-[#5D8A8A]" />,
     },
     {
       id: 'templates',
@@ -53,34 +52,16 @@ export const Sidebar: React.FC = () => {
   ]
 
   return (
-    <aside className="w-72 lg:w-80 flex-shrink-0 border-r border-slate-300 dark:border-[#223854] bg-[#F2EBD7] dark:bg-[#0D1B2A] flex flex-col h-screen sticky top-0 z-30 transition-colors duration-300 pl-3 pr-5 lg:pl-4 lg:pr-6">
-      {/* Brand Header - Retro-Futuristic TWA/Atomic Style */}
-      <div className="pt-6 pb-5 pl-2 pr-1 border-b border-slate-300/80 dark:border-[#223854] flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-[#FF6F3C] via-[#F2B705] to-[#5D8A8A] flex items-center justify-center text-[#F2EBD7] shadow-inner font-bold">
-            <span className="text-base font-retro">✦</span>
-          </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <span className="font-display font-black text-lg tracking-tight text-slate-900 dark:text-[#F2EBD7] uppercase">
-                REZUME
-              </span>
-              <span className="text-[9px] font-mono font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#FF6F3C]/20 text-[#FF6F3C] border border-[#FF6F3C]/40">
-                2080 SPEC
-              </span>
-            </div>
-            <p className="text-[10px] text-slate-600 dark:text-[#5D8A8A] font-mono tracking-wider uppercase">
-              Retro-Futuristic Studio
-            </p>
-          </div>
-        </div>
+    <aside className="w-80 shrink-0 border-r border-[#B2A487]/80 dark:border-[#282A33]/80 bg-[#E4DAC7]/90 dark:bg-[#121316]/85 backdrop-blur-xl flex flex-col h-screen sticky top-0 z-30 transition-colors duration-300 pl-4 pr-6 shadow-[4px_0_24px_rgba(0,0,0,0.12)]">
+      {/* Brand Header - REZUMEMAKER Logo & Workers' Studio Motto */}
+      <div className="pt-5 pb-4 pl-1 pr-1 border-b border-[#B2A487]/80 dark:border-[#282A33]/80 flex items-center justify-between">
+        <RezumeMakerLogo size="md" showMotto={true} />
       </div>
 
       {/* Main Navigation Tabs */}
       <div className="py-5 space-y-1">
-        <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-500 dark:text-[#A3B4C8] px-3 mb-2.5 flex items-center justify-between">
+        <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#2C2D33] dark:text-[#A8A49A] px-3 mb-2.5">
           <span>Navigation</span>
-          <span className="text-[#FF6F3C]">✦</span>
         </div>
         {navItems.map((item) => {
           const isActive = activeTab === item.id
@@ -90,8 +71,8 @@ export const Sidebar: React.FC = () => {
               onClick={() => setActiveTab(item.id)}
               className={`w-full flex items-center justify-between py-2.5 px-3 rounded-lg text-xs font-body font-medium transition-all duration-300 ease-out group cursor-pointer ${
                 isActive
-                  ? 'bg-[#FAF6EC] dark:bg-[#1B3150] text-[#0D1B2A] dark:text-[#F2EBD7] border border-[#FF6F3C]/60 shadow-[0_0_15px_-3px_rgba(255,111,60,0.2)]'
-                  : 'text-slate-600 dark:text-[#A3B4C8] hover:text-slate-900 dark:hover:text-[#F2EBD7] hover:bg-slate-200/50 dark:hover:bg-[#14243B] border border-transparent hover:translate-x-1'
+                  ? 'bg-[#C8BD9F] dark:bg-[#22252D] text-[#0A0B0E] dark:text-[#F7F4EB] border border-[#FF6F3C]/60 shadow-[0_0_15px_-3px_rgba(255,111,60,0.2)]'
+                  : 'text-[#2C2D33] dark:text-[#A8A49A] hover:text-[#0A0B0E] dark:hover:text-[#F7F4EB] hover:bg-[#D8CEBA]/70 dark:hover:bg-[#181A1F] border border-transparent hover:translate-x-1'
               }`}
             >
               <div className="flex items-center">
@@ -124,15 +105,15 @@ export const Sidebar: React.FC = () => {
       </div>
 
       {/* Dynamic Sections Manager */}
-      <div className="flex-1 overflow-y-auto px-2 py-3 border-t border-slate-300 dark:border-[#223854]">
+      <div className="flex-1 overflow-y-auto px-2 py-3 border-t border-[#B2A487]/80 dark:border-[#282A33]/80">
         <div className="flex items-center justify-between py-1.5 px-1">
           <button
             onClick={() => setSectionsExpanded(!sectionsExpanded)}
-            className="flex items-center space-x-2 text-xs font-display font-semibold uppercase tracking-wider text-slate-700 dark:text-[#A3B4C8] hover:text-slate-900 dark:hover:text-[#F2EBD7] transition-colors duration-200 cursor-pointer"
+            className="flex items-center space-x-2 text-xs font-display font-semibold uppercase tracking-wider text-[#2C2D33] dark:text-[#A8A49A] hover:text-[#0A0B0E] dark:hover:text-[#F7F4EB] transition-colors duration-200 cursor-pointer"
           >
             <SlidersHorizontal className="w-3.5 h-3.5 text-[#5D8A8A]" />
             <span>Dynamic Sections</span>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-200/60 dark:bg-[#14243B] text-slate-800 dark:text-[#F2EBD7] border border-slate-300/50 dark:border-[#223854]">
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#D8CEBA] dark:bg-[#181A1F] text-[#0A0B0E] dark:text-[#F7F4EB] border border-[#B2A487]/50 dark:border-[#282A33]">
               {activeSectionsCount}/{sections.length}
             </span>
           </button>
@@ -175,12 +156,12 @@ export const Sidebar: React.FC = () => {
                   key={sec.id}
                   className={`group flex items-center justify-between p-2 rounded-md text-xs transition-colors duration-200 ease-out ${
                     sec.isEnabled
-                      ? 'bg-[#FAF6EC] dark:bg-[#14243B] border border-slate-300 dark:border-[#223854] text-slate-900 dark:text-[#F2EBD7]'
-                      : 'bg-transparent border border-dashed border-slate-300/80 dark:border-[#223854]/40 text-slate-400 dark:text-[#A3B4C8]/50'
+                      ? 'bg-[#E6DFD1] dark:bg-[#181A1F] border border-[#CCC3B0] dark:border-[#282A33] text-slate-900 dark:text-[#F7F4EB]'
+                      : 'bg-transparent border border-dashed border-[#CCC3B0]/60 dark:border-[#282A33]/60 text-slate-400 dark:text-[#A8A49A]/50'
                   }`}
                 >
                   <div className="flex items-center space-x-2 min-w-0">
-                    <div className="flex flex-col text-slate-400 dark:text-[#A3B4C8]/60 group-hover:text-slate-600 dark:group-hover:text-[#A3B4C8]">
+                    <div className="flex flex-col text-slate-400 dark:text-[#A8A49A]/60 group-hover:text-slate-600 dark:group-hover:text-[#A8A49A]">
                       <button
                         disabled={index === 0}
                         onClick={() => moveSection(index, 'up')}
@@ -236,17 +217,17 @@ export const Sidebar: React.FC = () => {
         )}
       </div>
 
-      {/* Footer Controls: Retro-Themed Interface Toggle & User Badge */}
-      <div className="p-3 border-t border-slate-300 dark:border-[#223854] space-y-2.5">
+      {/* Footer Controls: Retro-Themed Interface Toggle */}
+      <div className="p-3 border-t border-[#B2A487]/80 dark:border-[#282A33]/80">
         {/* Dark Mode Toggle */}
-        <div className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-200/50 dark:bg-[#14243B] border border-slate-300 dark:border-[#223854]">
-          <div className="flex items-center space-x-2 text-xs font-body font-medium text-slate-800 dark:text-[#F2EBD7]">
+        <div className="flex items-center justify-between px-3 py-2 rounded-lg bg-[#D8CEBA]/80 dark:bg-[#181A1F] border border-[#B2A487] dark:border-[#282A33]">
+          <div className="flex items-center space-x-2 text-xs font-body font-medium text-[#0A0B0E] dark:text-[#F7F4EB]">
             {isDarkMode ? (
               <Moon className="w-3.5 h-3.5 text-[#B39ACD]" />
             ) : (
               <Sun className="w-3.5 h-3.5 text-[#FF6F3C]" />
             )}
-            <span>{isDarkMode ? 'Cosmic Navy (Dark)' : 'Space Cream (Light)'}</span>
+            <span>{isDarkMode ? 'Foggy Black (Dark)' : 'Retro Cream (Light)'}</span>
           </div>
           <button
             onClick={toggleDarkMode}
@@ -263,26 +244,6 @@ export const Sidebar: React.FC = () => {
               }`}
             />
           </button>
-        </div>
-
-        {/* User Status Bar - Mohammed Shaheen */}
-        <div className="flex items-center space-x-2.5 px-2 py-1 bg-slate-200/30 dark:bg-[#14243B]/60 rounded-lg border border-slate-300/40 dark:border-[#223854]/60">
-          <div className="relative">
-            <img
-              src={resumeData.profile.avatarUrl || `${import.meta.env.BASE_URL}shaheen.jpg`}
-              alt={resumeData.profile.fullName || 'Mohammed Shaheen'}
-              className="w-8 h-8 rounded-full object-cover ring-2 ring-[#FF6F3C]"
-            />
-            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#10b981] ring-1 ring-[#0D1B2A]" />
-          </div>
-          <div className="min-w-0 flex-1 text-left">
-            <p className="text-xs font-display font-bold text-slate-900 dark:text-[#F2EBD7] truncate">
-              {resumeData.profile.fullName}
-            </p>
-            <p className="text-[10px] font-mono text-[#5D8A8A] truncate">
-              ✦ {resumeData.profile.location.split('(')[0].trim()}
-            </p>
-          </div>
         </div>
       </div>
 

@@ -19,7 +19,7 @@ export const LayoutSwitcher: React.FC = () => {
       id: 'retro-split',
       title: 'Space-Age Split',
       subtitle: 'Retro-futuristic asymmetric layout with atomic star dividers and Space Cream ground',
-      badge: '✦ Retro Spec',
+      badge: 'Retro Spec',
       icon: <Orbit className="w-4 h-4 text-[#FF6F3C]" />,
     },
     {
@@ -46,22 +46,22 @@ export const LayoutSwitcher: React.FC = () => {
   ]
 
   return (
-    <div className="p-3 rounded-lg bg-white/80 dark:bg-[#14243B]/80 border border-slate-200/80 dark:border-[#223854] shadow-inner space-y-2">
+    <div className="p-3.5 rounded-2xl bg-[#E4DAC7]/90 dark:bg-[#181A1F]/85 backdrop-blur-xl border border-[#B2A487]/80 dark:border-[#282A33]/80 shadow-sm space-y-2.5">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <span className="text-xs font-display font-bold uppercase tracking-wider text-slate-800 dark:text-[#F2EBD7]">
+          <span className="text-xs font-display font-bold uppercase tracking-wider text-[#0A0B0E] dark:text-[#F7F4EB]">
             Document Layout Structure
           </span>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FF6F3C]/15 text-[#FF6F3C] border border-[#FF6F3C]/30 font-bold">
-            ✦ {layoutStructure.toUpperCase()}
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#FF6F3C]/15 text-[#FF6F3C] border border-[#FF6F3C]/30 font-bold">
+            {layoutStructure.toUpperCase()}
           </span>
         </div>
-        <span className="text-[11px] font-body text-slate-500 dark:text-[#A3B4C8] hidden sm:inline">
+        <span className="text-[11px] font-body text-[#2C2D33] dark:text-[#A8A49A] hidden sm:inline font-medium">
           Adapts multi-area drag & drop and A4 PDF layout
         </span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
         {options.map((opt) => {
           const isSelected = layoutStructure === opt.id
 
@@ -69,10 +69,10 @@ export const LayoutSwitcher: React.FC = () => {
             <button
               key={opt.id}
               onClick={() => setLayoutStructure(opt.id)}
-              className={`p-2.5 rounded-md border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between ${
+              className={`p-3 rounded-xl border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between ${
                 isSelected
-                  ? 'border-[#3b82f6] bg-[#2d3a50] text-[#e5e7eb] shadow-inner ring-1 ring-[#3b82f6]/40'
-                  : 'border-slate-200/80 dark:border-[#374151]/50 bg-slate-50/50 dark:bg-[#0a0e1a]/40 text-slate-700 dark:text-[#9ca3af] hover:border-[#374151] hover:text-[#e5e7eb]'
+                  ? 'border-[#FF6F3C] bg-[#C8BD9F] dark:bg-[#22252D] text-[#0A0B0E] dark:text-[#F7F4EB] shadow-sm ring-1 ring-[#FF6F3C]/50 font-bold'
+                  : 'border-[#B2A487]/70 dark:border-[#282A33]/70 bg-[#D8CEBA]/70 dark:bg-[#121316]/60 text-[#2C2D33] dark:text-[#A8A49A] hover:border-[#FF6F3C]/40 hover:text-[#0A0B0E] dark:hover:text-[#F7F4EB]'
               }`}
             >
               <div>
@@ -81,27 +81,27 @@ export const LayoutSwitcher: React.FC = () => {
                     <span
                       className={`${
                         isSelected
-                          ? 'text-[#3b82f6] dark:text-[#60a5fa]'
-                          : 'text-slate-400 dark:text-[#9ca3af]'
+                          ? 'text-[#FF6F3C]'
+                          : 'text-slate-500 dark:text-[#A8A49A]'
                       }`}
                     >
                       {opt.icon}
                     </span>
-                    <span className="text-xs font-display font-semibold truncate">
+                    <span className="text-xs font-display font-bold truncate">
                       {opt.title}
                     </span>
                   </div>
                   <span
-                    className={`text-[9px] font-mono px-1 py-0.2 rounded ${
+                    className={`text-[9px] font-mono px-1.5 py-0.5 rounded-full ${
                       isSelected
-                        ? 'bg-[#3b82f6]/25 text-[#93c5fd]'
-                        : 'bg-slate-200/50 dark:bg-[#1e293b] text-slate-500 dark:text-[#9ca3af]'
+                        ? 'bg-[#FF6F3C]/20 text-[#FF6F3C] border border-[#FF6F3C]/40'
+                        : 'bg-slate-200/60 dark:bg-[#181A1F] text-slate-600 dark:text-[#A8A49A] border border-[#282A33]/40'
                     }`}
                   >
                     {opt.badge}
                   </span>
                 </div>
-                <p className="text-[10px] font-body text-slate-500 dark:text-[#9ca3af]/80 line-clamp-2 leading-snug">
+                <p className="text-[10px] font-body text-slate-600 dark:text-[#A8A49A] line-clamp-2 leading-relaxed">
                   {opt.subtitle}
                 </p>
               </div>

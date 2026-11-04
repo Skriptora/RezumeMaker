@@ -23,11 +23,11 @@ export const ResumeBuilderView: React.FC = () => {
         <div className="lg:col-span-5 space-y-4">
           <div className="flex items-center justify-between pb-1 gap-2">
             <div>
-              <h2 className="text-xs font-display font-bold uppercase tracking-wider text-slate-800 dark:text-[#F2EBD7] flex items-center space-x-2">
+              <h2 className="text-xs font-display font-bold uppercase tracking-wider text-[#0A0B0E] dark:text-[#F7F4EB] flex items-center space-x-2">
                 <Layers className="w-3.5 h-3.5 text-[#FF6F3C]" />
                 <span>Draggable Resume Sections</span>
               </h2>
-              <p className="text-[11px] font-body text-slate-500 dark:text-[#A3B4C8]">
+              <p className="text-[11px] font-body text-[#2C2D33] dark:text-[#A8A49A] font-medium">
                 Drag cards by handle between columns and grid areas to customize your layout.
               </p>
             </div>

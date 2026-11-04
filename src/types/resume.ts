@@ -159,4 +159,44 @@ export interface ResumeTheme {
   accentColor: string
   fontFamily: 'sans' | 'serif' | 'mono'
   spacing: 'compact' | 'comfortable' | 'spacious'
+  backgroundColor?: string
+  primaryTextColor?: string
+  secondaryTextColor?: string
+  tertiaryColor?: string
+  quaternaryColor?: string
+}
+
+export type WebEditorViewport = 'desktop' | 'tablet' | 'mobile'
+export type WebEditorMode = 'multi-page' | 'single-page'
+export type WebEditorPageId = 'home' | 'about' | 'projects' | 'resume' | 'contact'
+export type CustomWebComponentType = 'text' | 'image' | 'art' | 'spline' | 'resume-block' | 'project-card'
+
+export interface ElementCustomStyle {
+  fontFamily?: string
+  fontSize?: number // in px
+  lineHeight?: number // multiplier e.g. 1.5
+  padding?: number // in px
+  margin?: number // in px
+  letterSpacing?: number // in px
+  width?: number // in px
+  height?: number // in px
+  borderWidth?: number // in px
+  borderColor?: string
+  borderRadius?: number // in px
+  backgroundColor?: string
+  color?: string
+}
+
+export interface CustomWebComponent {
+  id: string
+  page: WebEditorPageId | 'all'
+  type: CustomWebComponentType
+  title?: string
+  content?: string
+  imageUrl?: string
+  caption?: string
+  artStyle?: 'orbital-orb' | 'googie-rings' | 'atomic-spark' | 'wireframe-grid'
+  splineUrl?: string
+  resumeSection?: 'experience' | 'education' | 'skills' | 'certifications'
+  projectCardId?: string
 }

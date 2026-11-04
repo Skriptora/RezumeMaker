@@ -1,26 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;600&family=Manrope:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@500;700;900&family=Syne:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Special+Elite&family=Cinzel:wght@600;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap');
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 
 @theme {
-  --font-display: 'DM Serif Display', 'Space Grotesk', serif;
-  --font-retro: 'Syne', 'Space Grotesk', sans-serif;
-  --font-cinzel: 'Cinzel', serif;
-  --font-body: 'Outfit', 'Manrope', sans-serif;
-  --font-sans: 'Outfit', 'Manrope', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --font-display: 'Courier Prime', 'Special Elite', Courier, monospace;
+  --font-retro: 'Courier Prime', 'Special Elite', Courier, monospace;
+  --font-typewriter: 'Courier Prime', Courier, monospace;
+  --font-cinzel: 'Cinzel', 'Courier Prime', serif;
+  --font-body: 'Courier Prime', Courier, monospace;
+  --font-sans: 'Courier Prime', Courier, monospace;
+  --font-mono: 'Courier Prime', 'IBM Plex Mono', monospace;
 
-  /* Retro-Futuristic Palette Tokens (Thegrafx Palette Spec) */
+  /* Gritty Foggy Black & Richer Darker Cream Palette Tokens */
   --color-retro-orange: #FF6F3C;
-  --color-retro-cream: #F2EBD7;
+  --color-retro-cream: #D8CEBA;
+  --color-retro-cream-light: #F7F4EB;
   --color-retro-teal: #5D8A8A;
-  --color-retro-navy: #0D1B2A;
+  --color-retro-navy: #121316;
   --color-retro-lavender: #B39ACD;
   --color-retro-yellow: #F2B705;
 
-  --color-bg-base: #0D1B2A;
-  --color-surface-card: #14243B;
-  --color-surface-elevated: #1B3150;
+  --color-bg-base: #121316;
+  --color-surface-card: #181A1F;
+  --color-surface-elevated: #22252D;
   --color-primary-accent: #FF6F3C;
   --color-secondary-accent: #5D8A8A;
   --color-accent-lavender: #B39ACD;
@@ -29,19 +31,19 @@
   --color-success: #10b981;
   --color-warning: #F2B705;
   --color-error: #ef4444;
-  --color-text-primary: #F2EBD7;
-  --color-text-secondary: #A3B4C8;
-  --color-border-subtle: #223854;
+  --color-text-primary: #F7F4EB;
+  --color-text-secondary: #A8A49A;
+  --color-border-subtle: #282A33;
 }
 
 @layer base {
   :root {
-    --bg-primary: #F2EBD7;
-    --bg-card: #FAF6EC;
-    --bg-elevated: #EFE6D0;
-    --text-primary: #0D1B2A;
-    --text-secondary: #3D5A73;
-    --border-color: #D8CEBA;
+    --bg-primary: #D8CEBA;
+    --bg-card: #E4DAC7;
+    --bg-elevated: #C8BD9F;
+    --text-primary: #0A0B0E;
+    --text-secondary: #2C2D33;
+    --border-color: #B2A487;
     --accent-orange: #FF6F3C;
     --accent-teal: #5D8A8A;
     --accent-lavender: #B39ACD;
@@ -49,12 +51,12 @@
   }
 
   .dark {
-    --bg-primary: #0D1B2A;
-    --bg-card: #14243B;
-    --bg-elevated: #1B3150;
-    --text-primary: #F2EBD7;
-    --text-secondary: #A3B4C8;
-    --border-color: #223854;
+    --bg-primary: #121316;
+    --bg-card: #181A1F;
+    --bg-elevated: #22252D;
+    --text-primary: #F7F4EB;
+    --text-secondary: #A8A49A;
+    --border-color: #282A33;
     --accent-orange: #FF6F3C;
     --accent-teal: #5D8A8A;
     --accent-lavender: #B39ACD;
@@ -63,23 +65,24 @@
   }
 
   html {
-    font-family: 'Outfit', 'Manrope', sans-serif;
+    font-family: 'Courier Prime', Courier, monospace;
   }
 
   body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    font-family: 'Outfit', 'Manrope', sans-serif;
+    font-family: 'Courier Prime', Courier, monospace;
     min-height: 100vh;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'DM Serif Display', 'Space Grotesk', serif;
+    font-family: 'Courier Prime', 'Special Elite', Courier, monospace;
+    letter-spacing: -0.01em;
   }
 
   code, pre, kbd {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Courier Prime', 'IBM Plex Mono', monospace;
   }
 
   ::selection {
@@ -100,11 +103,11 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(13, 27, 42, 0.4);
+  background: rgba(18, 19, 22, 0.4);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(93, 138, 138, 0.4);
+  background: rgba(93, 138, 138, 0.35);
   border-radius: 9999px;
   border: 1px solid rgba(255, 111, 60, 0.2);
 }
@@ -116,7 +119,7 @@
 /* Retro-futuristic hairline geometric borders */
 .retro-border {
   border: 1px solid rgba(93, 138, 138, 0.25);
-  box-shadow: 0 4px 20px -2px rgba(13, 27, 42, 0.3);
+  box-shadow: 0 4px 20px -2px rgba(18, 19, 22, 0.3);
 }
 
 .retro-border-glow {
@@ -126,17 +129,17 @@
 
 /* Glassmorphism helpers */
 .glass-panel {
-  background: rgba(250, 246, 236, 0.88);
+  background: rgba(237, 230, 216, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(216, 206, 186, 0.8);
+  border: 1px solid rgba(204, 195, 176, 0.8);
 }
 
 .dark .glass-panel {
-  background: rgba(20, 36, 59, 0.88);
+  background: rgba(24, 26, 31, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(34, 56, 84, 0.8);
+  border: 1px solid rgba(40, 42, 51, 0.8);
 }
 
 /* Print simulation */

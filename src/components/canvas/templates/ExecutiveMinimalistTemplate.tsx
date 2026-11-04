@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import { motion, AnimatePresence, type Variants } from 'framer-motion'
 import type { PortfolioProjectCard, ProfileData } from '../../../types/resume'
 import { ArrowUpRight, ChevronDown, ChevronUp } from 'lucide-react'
+import { useResumeStore } from '../../../store/useResumeStore'
 
 interface ExecutiveMinimalistTemplateProps {
   cards: PortfolioProjectCard[]
@@ -14,8 +15,23 @@ export const ExecutiveMinimalistTemplate: React.FC<ExecutiveMinimalistTemplatePr
   profile,
   animationTriggerKey,
 }) => {
+  const { selectedElementId, setSelectedElementId } = useResumeStore()
   const [activeIndex, setActiveIndex] = useState<number>(0)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  const getSelectableClass = (id: string, baseClass = '') => {
+    const isSelected = selectedElementId === id
+    return `${baseClass} cursor-pointer transition-all duration-150 ${
+      isSelected
+        ? 'ring-2 ring-[#FF6F3C] ring-offset-2 ring-offset-[#0a0e1a] shadow-[0_0_12px_rgba(255,111,60,0.5)] rounded-xl relative z-20'
+        : 'hover:ring-1 hover:ring-[#FF6F3C]/50 hover:ring-offset-1 rounded-xl'
+    }`
+  }
+
+  const handleSelect = (id: string) => (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setSelectedElementId(id)
+  }
 
   const scrollToSlide = (idx: number) => {
     if (!containerRef.current) return
@@ -52,7 +68,11 @@ export const ExecutiveMinimalistTemplate: React.FC<ExecutiveMinimalistTemplatePr
   return (
     <div className="relative rounded-2xl border border-slate-200 dark:border-[#374151]/80 bg-[#0a0e1a] text-[#e5e7eb] overflow-hidden shadow-2xl">
       {/* Editorial HUD Top Bar */}
-      <div className="p-4 border-b border-[#374151]/60 flex items-center justify-between text-xs font-mono select-none bg-[#0c111d]/90 backdrop-blur-md">
+      <div
+        id="template-executive-bar"
+        onClick={handleSelect('template-executive-bar')}
+        className={getSelectableClass('template-executive-bar', 'p-4 border-b border-[#374151]/60 flex items-center justify-between text-xs font-mono select-none bg-[#0c111d]/90 backdrop-blur-md')}
+      >
         <div className="flex items-center space-x-2">
           <span className="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse" />
           <span className="font-display font-bold uppercase tracking-wider text-[#e5e7eb]">
@@ -95,10 +115,15 @@ export const ExecutiveMinimalistTemplate: React.FC<ExecutiveMinimalistTemplatePr
           {cards.map((card, idx) => (
             <motion.div
               key={`${card.id}-${animationTriggerKey}`}
+              id={`template-executive-card-${card.id}`}
+              onClick={handleSelect(`template-executive-card-${card.id}`)}
               variants={slideVariants}
               initial="hidden"
               animate="visible"
-              className="h-[520px] w-full snap-start snap-always p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-6 border-b border-[#374151]/30 last:border-b-0"
+              className={getSelectableClass(
+                `template-executive-card-${card.id}`,
+                'h-[520px] w-full snap-start snap-always p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-6 border-b border-[#374151]/30 last:border-b-0'
+              )}
             >
               {/* Left Column: Editorial Details */}
               <div className="w-full lg:w-[48%] space-y-4 text-left">
@@ -115,7 +140,11 @@ export const ExecutiveMinimalistTemplate: React.FC<ExecutiveMinimalistTemplatePr
                 </div>
 
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-display font-black tracking-tight text-white">
+                  <h2
+                    id={`template-executive-card-${card.id}-title`}
+                    onClick={handleSelect(`template-executive-card-${card.id}-title`)}
+                    className={getSelectableClass(`template-executive-card-${card.id}-title`, 'text-2xl sm:text-3xl font-display font-black tracking-tight text-white inline-block')}
+                  >
                     {card.title}
                   </h2>
                   <p className="text-xs font-mono text-[#9ca3af] mt-1">
@@ -123,12 +152,20 @@ export const ExecutiveMinimalistTemplate: React.FC<ExecutiveMinimalistTemplatePr
                   </p>
                 </div>
 
-                <p className="text-xs font-body text-[#9ca3af] leading-relaxed">
+                <p
+                  id={`template-executive-card-${card.id}-desc`}
+                  onClick={handleSelect(`template-executive-card-${card.id}-desc`)}
+                  className={getSelectableClass(`template-executive-card-${card.id}-desc`, 'text-xs font-body text-[#9ca3af] leading-relaxed p-0.5 rounded')}
+                >
                   {card.description}
                 </p>
 
                 {/* Tech Stack Pills */}
-                <div className="space-y-1.5 pt-2">
+                <div
+                  id={`template-executive-card-${card.id}-tags`}
+                  onClick={handleSelect(`template-executive-card-${card.id}-tags`)}
+                  className={getSelectableClass(`template-executive-card-${card.id}-tags`, 'space-y-1.5 pt-2 p-0.5 rounded')}
+                >
                   <span className="text-[10px] font-mono uppercase tracking-wider text-[#9ca3af]/70">
                     Core Technologies
                   </span>

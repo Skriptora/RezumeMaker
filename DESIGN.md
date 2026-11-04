@@ -12,49 +12,55 @@
 ### Impeccable Design Principles (Strict Adherence)
 1. **Zero Generic UI Tropes**: No default Inter font, no nested card-in-card containers, no pure black (`#000000`) or sterile white (`#ffffff`), no centered generic templates, and absolutely no bouncy spring physics.
 2. **Authentic Retro-Futuristic Palette**: Rooted in Thegrafx mid-century futurism poster swatches—Cosmic Navy, Burnt Orange, Space Cream, Retro Teal, Vintage Lavender, and Sunburst Yellow.
-3. **Editorial Typography Pairings**: High-contrast display serifs (`DM Serif Display`), sculptural constructivist sans (`Syne`), clean geometric reading body (`Outfit`), and precision monospace (`IBM Plex Mono`).
+3. **Retro Typewriter Typography**: Mechanical retro typewriter (`Courier Prime`), tactile vintage ribbon headings (`Special Elite`), and clean monospace telemetry (`IBM Plex Mono`). Exceptional readability across all screen sizes with authentic tactile keystroke poise.
 4. **Fluid, Non-Elastic Motion**: Every transition employs a custom fluid cubic-bezier curve (`cubic-bezier(0.16, 1, 0.3, 1)`) with calibrated durations (240ms–500ms), giving an effortless, luxurious motion profile.
-5. **Architectural Asymmetry & Glyphic Accents**: Space stars (`✦`), planetary orbital rings, hairline dividers, and asymmetric split-column rhythms inspired by 1960s aerospace manuals and editorial lookbooks.
+5. **Clean Geometric Abstract Art & Glassmorphism**: Clean mid-century architectural line art (concentric retro space arcs, Googie planetary orbits, drafting lines, and registration targets—zero gradients!) subtly visible beneath frosted retro glassmorphic panels (`backdrop-blur-xl`, `#FAF6EC`/`#14243B` surfaces with `#D8CEBA`/`#223854` hairline borders).
 
 ---
 
 ## 2. Color System & Swatches
 
-Derived directly from the Thegrafx Retro-Futuristic Color Palette reference:
+Custom calibrated to the user's bespoke aesthetic: **Gritty Foggy Grayish Black** dark mode with **Light Cream** typography, and a **Rich Tactile Darker Cream** light mode with **Jet Black** typography so fonts pop crisply without washed-out glare.
 
-| Swatch Name | Hex Token | CSS Variable | Semantic Usage |
+| Swatch Name | Hex Token | CSS Variable / Token | Semantic Usage |
 |:---|:---|:---|:---|
-| **Cosmic Navy** | `#0D1B2A` | `--bg-cosmic-navy` | Root page background, deep surfaces, dark card backing |
-| **Space Cream** | `#F2EBD7` | `--retro-cream` | A4 document paper, high-contrast text, light surface mode |
+| **Gritty Foggy Black** | `#121316` | `--bg-primary` (dark) | Atmospheric dark mode base background |
+| **Rich Darker Cream** | `#D8CEBA` | `--bg-primary` (light) | Light mode base background (warm, earthy parchment, never white) |
+| **Light Very Light Cream** | `#F7F4EB` | `--text-primary` (dark) | Dark mode primary typography (soft, warm, readable non-white) |
+| **Jet Black Typography** | `#0A0B0E` | `--text-primary` (light) | Light mode bold typography (maximum crisp contrast on cream) |
+| **Dark Charcoal Secondary** | `#2C2D33` | `--text-secondary` (light)| Light mode subtitles, descriptions, and labels |
+| **Foggy Dark Charcoal** | `#181A1F` | `--bg-card` (dark) | Elevated cards, sidebar, modal background in dark mode |
+| **Dark Elevated Active** | `#22252D` | `retro.navyElevated` | Active tab highlights, hover states, ribbon banners |
+| **Dark Gritty Hairline** | `#282A33` | `--border-color` (dark)| Precision hairline borders and dividers in dark mode |
+| **Frosted Cream Card** | `#E4DAC7` | `--bg-card` (light) | Elevated cards, sidebar, and preview panes in light mode |
+| **Cream Active Rail** | `#C8BD9F` | `surface.cream` | Active tab highlights, hover states in light mode |
+| **Cream Hairline Border**| `#B2A487` | `--border-color` (light)| Precision hairline borders and dividers in light mode |
 | **Burnt Orange** | `#FF6F3C` | `--accent-burnt-orange` | Primary interactive accent, hero buttons, key badges, solar discs |
 | **Retro Teal** | `#5D8A8A` | `--accent-retro-teal` | Secondary accents, verification badges, tag containers, metrics |
 | **Vintage Lavender** | `#B39ACD` | `--accent-vintage-lavender`| Tertiary highlights, creative category tags, narrative headers |
 | **Sunburst Yellow** | `#F2B705` | `--accent-sunburst-yellow` | Star badges (`✦`), warnings, milestone callouts, energetic highlights |
-| **Deep Surface** | `#14243B` | `--surface-deep` | Sidebar background, elevated card layers, form controls |
-| **Cosmic Hairline** | `#223854` | `--border-hairline` | Structural hairline dividers, sub-borders, inactive toggles |
 
 ### Palette Contrast & Accessibility
-- Primary text on Cosmic Navy: Space Cream (`#F2EBD7`) at `9.6:1` contrast ratio (surpasses WCAG AAA).
-- Primary text on Space Cream: Cosmic Navy (`#0D1B2A`) at `10.8:1` contrast ratio.
-- Burnt Orange (`#FF6F3C`) is paired with Cosmic Navy text when used as solid button fills to ensure crisp, accessible legibility.
+- Primary text on Gritty Foggy Black (`#121316`): Light Very Light Cream (`#F7F4EB`) at **16.4:1** contrast ratio (WCAG AAA).
+- Primary text on Rich Darker Cream (`#D8CEBA`): Jet Black (`#0A0B0E`) at **14.2:1** contrast ratio (WCAG AAA).
+- Secondary text on Rich Darker Cream (`#D8CEBA`): Deep Charcoal (`#2C2D33`) at **9.5:1** contrast ratio.
 
 ---
 
-## 3. Typography Architecture
+## 3. Typography Architecture (Retro Typewriter)
 
 | Role | Font Family | Weights | Intended Character & Purpose |
 |:---|:---|:---|:---|
-| **Editorial Display** | **DM Serif Display** | 400, italic | Mid-century editorial headlines, A4 header names, poster titles |
-| **Constructivist Sans** | **Syne** | 700, 800 | Architectural subheadings, section badges, energetic kinetic navigation |
-| **Primary Body** | **Outfit** | 400, 500, 600 | High-legibility geometric sans for resume bullet points & form inputs |
-| **Precision Monospace** | **IBM Plex Mono** | 400, 500, 600 | Code identifiers, system metrics, dates, coordinates, tags |
+| **Primary Typewriter** | **Courier Prime** | 400, 700, italic | Clean, readable retro mechanical typewriter font for all body text, bullet points & inputs |
+| **Vintage Display** | **Special Elite** | 400 | Tactile ink-ribbon keystroke letterforms for titles and retro branding |
+| **Precision Telemetry** | **IBM Plex Mono** | 400, 600 | Monospaced technical identifiers, coordinates, and metrics |
 | **Classical Accent** | **Cinzel** | 600, 700 | Formal title accents, certification labels |
 
 ### Hierarchy Rules
-- **Document Titles (`H1`)**: `font-serif` (DM Serif Display), tracking `-0.02em`, leading `1.1`.
-- **Section Headers (`H2`)**: `font-retro` (Syne 700) or `font-serif`, uppercase with letter-spacing `+0.12em` and leading atomic star glyph (`✦`).
-- **Body Text**: `font-sans` (Outfit 400/500), line-height `1.5` on screens, `1.38` in A4 print layout.
-- **Metadata & Dates**: `font-mono` (IBM Plex Mono 500), lowercase or uppercase with `tracking-wider`.
+- **Document Titles (`H1`)**: `font-display` (Courier Prime / Special Elite), letter-spacing `-0.01em`, leading `1.15`.
+- **Section Headers (`H2`)**: `font-display` (Courier Prime bold), uppercase with letter-spacing `+0.08em` and leading atomic star glyph (`✦`).
+- **Body Text**: `font-body` (Courier Prime regular), line-height `1.5` on screens, `1.4` in A4 print layout.
+- **Metadata & Dates**: `font-mono` (Courier Prime / IBM Plex Mono), uppercase with `tracking-wider`.
 
 ---
 

@@ -9,35 +9,38 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"DM Serif Display"', '"Space Grotesk"', 'serif'],
-        retro: ['"Syne"', '"Space Grotesk"', 'sans-serif'],
-        cinzel: ['"Cinzel"', 'serif'],
-        sans: ['"Outfit"', '"Manrope"', 'sans-serif'],
-        body: ['"Outfit"', '"Manrope"', 'sans-serif'],
-        mono: ['"IBM Plex Mono"', 'monospace'],
+        display: ['"Courier Prime"', '"Special Elite"', 'Courier', 'monospace'],
+        retro: ['"Courier Prime"', '"Special Elite"', 'Courier', 'monospace'],
+        typewriter: ['"Courier Prime"', 'Courier', 'monospace'],
+        cinzel: ['"Cinzel"', '"Courier Prime"', 'serif'],
+        sans: ['"Courier Prime"', 'Courier', 'monospace'],
+        body: ['"Courier Prime"', 'Courier', 'monospace'],
+        mono: ['"Courier Prime"', '"IBM Plex Mono"', 'monospace'],
       },
       colors: {
-        // Retro-Futuristic Palette (Thegrafx Palette Spec)
+        // Gritty Foggy Black & Richer Darker Cream Palette
         retro: {
           orange: '#FF6F3C', // Burnt Orange
-          cream: '#F2EBD7',  // Space Cream
+          cream: '#D8CEBA',  // Richer Darker Cream (light mode bg)
+          creamLight: '#F7F4EB', // Very Light Cream (dark mode text)
           teal: '#5D8A8A',   // Retro Teal
-          navy: '#0D1B2A',   // Cosmic Navy
+          navy: '#121316',   // Gritty Foggy Black
           lavender: '#B39ACD', // Vintage Lavender
           yellow: '#F2B705', // Sunburst Yellow
-          navyLight: '#14243B',
-          navyElevated: '#1B3150',
-          creamDark: '#E5DDC7',
+          navyLight: '#181A1F', // Elevated Foggy Card
+          navyElevated: '#22252D', // Higher Elevation
+          creamDark: '#C8BD9F',
         },
         bg: {
-          base: '#0D1B2A',
-          cream: '#F2EBD7',
+          base: '#121316',
+          cream: '#D8CEBA',
+          creamLight: '#F7F4EB',
         },
         surface: {
-          DEFAULT: '#14243B',
-          card: '#14243B',
-          elevated: '#1B3150',
-          cream: '#FAF6EC',
+          DEFAULT: '#181A1F',
+          card: '#181A1F',
+          elevated: '#22252D',
+          cream: '#E4DAC7',
         },
         primary: {
           DEFAULT: '#FF6F3C',

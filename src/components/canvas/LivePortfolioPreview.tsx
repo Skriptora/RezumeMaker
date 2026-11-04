@@ -24,8 +24,15 @@ export const LivePortfolioPreview: React.FC<LivePortfolioPreviewProps> = ({
   animationTriggerKey,
   onReplay,
 }) => {
-  const { portfolioCards, portfolioTemplate, setPortfolioTemplate, resumeData } =
-    useResumeStore()
+  const {
+    portfolioCards,
+    portfolioTemplate,
+    setPortfolioTemplate,
+    resumeData,
+    selectedElementId,
+    setSelectedElementId,
+    elementStyles,
+  } = useResumeStore()
   const { profile } = resumeData
 
   const renderActiveTemplate = () => {
@@ -82,9 +89,9 @@ export const LivePortfolioPreview: React.FC<LivePortfolioPreviewProps> = ({
   }
 
   return (
-    <div className="rounded-2xl border border-slate-300/80 dark:border-[#374151]/80 bg-white dark:bg-[#0a0e1a] shadow-2xl overflow-hidden flex flex-col">
+    <div className="rounded-2xl border border-[#CCC3B0] dark:border-[#282A33] bg-[#EDE6D8] dark:bg-[#121316] shadow-2xl overflow-hidden flex flex-col">
       {/* Mock Browser Window Chrome Header */}
-      <div className="px-4 py-3 bg-slate-100 dark:bg-[#0c111d] border-b border-slate-200 dark:border-[#374151] flex flex-wrap items-center justify-between gap-3 select-none">
+      <div className="px-4 py-3 bg-[#E6DFD1] dark:bg-[#181A1F] border-b border-[#CCC3B0] dark:border-[#282A33] flex flex-wrap items-center justify-between gap-3 select-none">
         {/* Window controls */}
         <div className="flex items-center space-x-2">
           <span className="w-3 h-3 rounded-full bg-[#ef4444]" />
@@ -93,22 +100,40 @@ export const LivePortfolioPreview: React.FC<LivePortfolioPreviewProps> = ({
         </div>
 
         {/* Address bar */}
-        <div className="flex-1 max-w-sm sm:max-w-md mx-auto flex items-center justify-center px-3 py-1 rounded-lg bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-[#374151]/60 text-[11px] text-slate-500 dark:text-[#9ca3af] font-mono truncate">
-          <Globe className="w-3 h-3 text-[#3b82f6] mr-1.5 flex-shrink-0" />
+        <div className="flex-1 max-w-sm sm:max-w-md mx-auto flex items-center justify-center px-3 py-1 rounded-lg bg-[#EDE6D8] dark:bg-[#121316] border border-[#CCC3B0] dark:border-[#282A33] text-[11px] text-[#4D4E54] dark:text-[#A8A49A] font-mono truncate">
+          <Globe className="w-3 h-3 text-[#5D8A8A] mr-1.5 flex-shrink-0" />
           <span className="truncate">
             https://{profile.fullName.toLowerCase().replace(/\s+/g, '')}.dev/{portfolioTemplate}
           </span>
         </div>
 
+        {/* Selected Element Pill in Window Chrome */}
+        {selectedElementId && (
+          <div className="flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-[#FF6F3C]/20 border border-[#FF6F3C]/40 text-[#FF6F3C] text-[10px] font-mono font-semibold animate-fadeIn">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6F3C] animate-ping" />
+            <span>Selected: <code className="font-bold underline">{selectedElementId}</code></span>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setSelectedElementId(null)
+              }}
+              className="ml-1 text-[#4D4E54] dark:text-[#A8A49A] hover:text-red-500 rounded-full w-3.5 h-3.5 flex items-center justify-center font-bold cursor-pointer"
+              title="Deselect element"
+            >
+              ✕
+            </button>
+          </div>
+        )}
+
         {/* Template Quick Toggles & Replay */}
         <div className="flex items-center space-x-1.5">
-          <div className="flex items-center space-x-0.5 bg-slate-200/60 dark:bg-[#14243B] rounded-lg p-0.5 text-xs">
+          <div className="flex items-center space-x-0.5 bg-[#DDD5C4] dark:bg-[#121316] rounded-lg p-0.5 text-xs">
             <button
               onClick={() => setPortfolioTemplate('retro-space-age')}
               className={`px-2 py-0.5 rounded text-[11px] font-mono transition-colors cursor-pointer flex items-center space-x-1 ${
                 portfolioTemplate === 'retro-space-age'
-                  ? 'bg-[#FF6F3C] text-[#F2EBD7] font-bold shadow-xs'
-                  : 'text-slate-600 dark:text-[#A3B4C8] hover:text-[#FF6F3C]'
+                  ? 'bg-[#FF6F3C] text-[#121316] font-bold shadow-xs'
+                  : 'text-[#4D4E54] dark:text-[#A8A49A] hover:text-[#FF6F3C]'
               }`}
               title="Retro-Futuristic Space-Age Studio"
             >
@@ -119,8 +144,8 @@ export const LivePortfolioPreview: React.FC<LivePortfolioPreviewProps> = ({
               onClick={() => setPortfolioTemplate('cyber-kinetic-bauhaus')}
               className={`px-2 py-0.5 rounded text-[11px] font-mono transition-colors cursor-pointer flex items-center space-x-1 ${
                 portfolioTemplate === 'cyber-kinetic-bauhaus'
-                  ? 'bg-[#F2B705] text-[#0D1B2A] font-bold shadow-xs'
-                  : 'text-slate-600 dark:text-[#A3B4C8] hover:text-[#F2B705]'
+                  ? 'bg-[#F2B705] text-[#121316] font-bold shadow-xs'
+                  : 'text-[#4D4E54] dark:text-[#A8A49A] hover:text-[#F2B705]'
               }`}
               title="Cyber-Kinetic Bauhaus Grid"
             >
@@ -131,8 +156,8 @@ export const LivePortfolioPreview: React.FC<LivePortfolioPreviewProps> = ({
               onClick={() => setPortfolioTemplate('creative-studio')}
               className={`px-2 py-0.5 rounded text-[11px] font-mono transition-colors cursor-pointer flex items-center space-x-1 ${
                 portfolioTemplate === 'creative-studio'
-                  ? 'bg-white dark:bg-[#1B3150] text-[#5D8A8A] font-bold shadow-xs'
-                  : 'text-slate-600 dark:text-[#A3B4C8] hover:text-[#F2EBD7]'
+                  ? 'bg-[#EDE6D8] dark:bg-[#22252D] text-[#5D8A8A] font-bold shadow-xs'
+                  : 'text-[#4D4E54] dark:text-[#A8A49A] hover:text-[#121316] dark:hover:text-[#F7F4EB]'
               }`}
               title="Creative Studio (Masonry)"
             >
@@ -143,8 +168,8 @@ export const LivePortfolioPreview: React.FC<LivePortfolioPreviewProps> = ({
               onClick={() => setPortfolioTemplate('executive-minimalist')}
               className={`px-2 py-0.5 rounded text-[11px] font-mono transition-colors cursor-pointer flex items-center space-x-1 ${
                 portfolioTemplate === 'executive-minimalist'
-                  ? 'bg-white dark:bg-[#1B3150] text-[#5D8A8A] font-bold shadow-xs'
-                  : 'text-slate-600 dark:text-[#A3B4C8] hover:text-[#F2EBD7]'
+                  ? 'bg-[#EDE6D8] dark:bg-[#22252D] text-[#5D8A8A] font-bold shadow-xs'
+                  : 'text-[#4D4E54] dark:text-[#A8A49A] hover:text-[#121316] dark:hover:text-[#F7F4EB]'
               }`}
               title="Executive Minimalist (Snap Scroll)"
             >
@@ -155,8 +180,8 @@ export const LivePortfolioPreview: React.FC<LivePortfolioPreviewProps> = ({
               onClick={() => setPortfolioTemplate('developer-terminal')}
               className={`px-2 py-0.5 rounded text-[11px] font-mono transition-colors cursor-pointer flex items-center space-x-1 ${
                 portfolioTemplate === 'developer-terminal'
-                  ? 'bg-white dark:bg-[#1B3150] text-[#5D8A8A] font-bold shadow-xs'
-                  : 'text-slate-600 dark:text-[#A3B4C8] hover:text-[#F2EBD7]'
+                  ? 'bg-[#EDE6D8] dark:bg-[#22252D] text-[#5D8A8A] font-bold shadow-xs'
+                  : 'text-[#4D4E54] dark:text-[#A8A49A] hover:text-[#121316] dark:hover:text-[#F7F4EB]'
               }`}
               title="Developer Terminal (Monospace Code)"
             >
@@ -167,7 +192,7 @@ export const LivePortfolioPreview: React.FC<LivePortfolioPreviewProps> = ({
 
           <button
             onClick={onReplay}
-            className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-[#374151] text-slate-700 dark:text-[#e5e7eb] hover:text-[#3b82f6] shadow-xs transition-colors cursor-pointer"
+            className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-[#EDE6D8] dark:bg-[#181A1F] border border-[#CCC3B0] dark:border-[#282A33] text-[#121316] dark:text-[#F7F4EB] hover:text-[#FF6F3C] shadow-xs transition-colors cursor-pointer"
             title="Re-run Framer Motion Entrance Animation"
           >
             <RotateCcw className="w-3 h-3" />
@@ -177,7 +202,29 @@ export const LivePortfolioPreview: React.FC<LivePortfolioPreviewProps> = ({
       </div>
 
       {/* Simulated Website Body Container */}
-      <div className="p-4 sm:p-8 bg-[#0a0e1a]/40 min-h-[500px] overflow-y-auto">
+      <div
+        onClick={() => setSelectedElementId(null)}
+        className="p-4 sm:p-8 bg-[#E6DFD1]/60 dark:bg-[#121316]/60 min-h-[500px] overflow-y-auto cursor-default"
+      >
+        {/* Dynamic element custom styles applied to active portfolio template */}
+        <style>{`
+          ${Object.entries(elementStyles)
+            .map(([id, s]) => {
+              const rules: string[] = []
+              if (s.fontFamily) rules.push(`font-family: "${s.fontFamily}", monospace !important;`)
+              if (typeof s.fontSize === 'number' && s.fontSize > 0)
+                rules.push(`font-size: ${s.fontSize}px !important;`)
+              if (typeof s.lineHeight === 'number' && s.lineHeight > 0)
+                rules.push(`line-height: ${s.lineHeight} !important;`)
+              if (typeof s.padding === 'number') rules.push(`padding: ${s.padding}px !important;`)
+              if (typeof s.margin === 'number') rules.push(`margin: ${s.margin}px !important;`)
+              if (typeof s.letterSpacing === 'number')
+                rules.push(`letter-spacing: ${s.letterSpacing}px !important;`)
+              if (rules.length === 0) return ''
+              return `[id="${id}"], [data-element-id="${id}"] { ${rules.join(' ')} }`
+            })
+            .join('\n')}
+        `}</style>
         {renderActiveTemplate()}
       </div>
     </div>

@@ -62,23 +62,23 @@ export const DEFAULT_SECTIONS: ResumeSection[] = [
 
 export const MOCK_RESUME_DATA: ResumeData = {
   profile: {
-    fullName: 'Mohammed Shaheen',
+    fullName: 'Muhammad Shaheen',
     headline: 'Senior Full-Stack Engineer & Cloud Systems Architect',
-    email: 'mohammed.shaheen@devmail.io',
+    email: 'muhammad.shaheen@devmail.io',
     phone: '+91 98460 12345',
-    location: 'Bangalore, Karnataka (Hometown: Ernakulam, Kerala)',
-    website: 'https://mohammedshaheen.dev',
-    github: 'https://github.com/mohammedshaheen',
-    linkedin: 'https://linkedin.com/in/mohammed-shaheen-dev',
+    location: 'Aluva, Kerala',
+    website: 'https://muhammadshaheen.dev',
+    github: 'https://github.com/muhammadshaheen',
+    linkedin: 'https://linkedin.com/in/muhammad-shaheen-dev',
     summary:
-      'Product-minded Senior Full-Stack Engineer originally from Ernakulam, Kerala, currently based in Bangalore with 6+ years of experience designing scalable distributed web platforms, high-throughput cloud microservices, and reactive user interfaces. Proficient in TypeScript, React, Next.js, Node.js, Go, and AWS cloud infrastructure with a deep commitment to clean architecture and developer ergonomics.',
+      'Product-minded Senior Full-Stack Engineer based in Aluva, Kerala with 6+ years of experience designing scalable distributed web platforms, high-throughput cloud microservices, and reactive user interfaces. Proficient in TypeScript, React, Next.js, Node.js, Go, and AWS cloud infrastructure with a deep commitment to clean architecture and developer ergonomics.',
     avatarUrl: `${import.meta.env.BASE_URL}shaheen.jpg`,
     industry: 'software',
     cadTools: 'AutoCAD Electrical, MATLAB & Simulink, IoT Embedded Firmware',
     engineeringLicense: 'Chartered Engineer (IEI India #CE-94021) | IEEE Member',
-    kaggleOrHuggingFace: 'https://huggingface.co/mohammedshaheen',
-    figmaOrDribbble: 'https://figma.com/@mohammedshaheen',
-    teamSizeOrBudget: '16 Engineers across Bangalore & Kochi | $4.2M Cloud Infra Budget',
+    kaggleOrHuggingFace: 'https://huggingface.co/muhammadshaheen',
+    figmaOrDribbble: 'https://figma.com/@muhammadshaheen',
+    teamSizeOrBudget: '16 Engineers across Kochi & Bangalore | $4.2M Cloud Infra Budget',
   },
   experience: [
     {
@@ -268,12 +268,49 @@ export const MOCK_PORTFOLIO_CARDS: PortfolioProjectCard[] = [
 
 // Aliases matching store convention
 export const INITIAL_RESUME_DATA = MOCK_RESUME_DATA
+export const AXIOM_7_MOCK_DATA = MOCK_RESUME_DATA
 export const INITIAL_PORTFOLIO_CARDS = MOCK_PORTFOLIO_CARDS
+
+export const INITIAL_WEB_COMPONENTS: import('../types/resume').CustomWebComponent[] = [
+  {
+    id: 'comp-about-photo',
+    page: 'about',
+    type: 'image',
+    title: 'Muhammad Shaheen — Studio Portrait',
+    imageUrl: `${import.meta.env.BASE_URL}shaheen.jpg`,
+    caption: 'Full-Stack Architect based in Aluva, Kerala',
+  },
+  {
+    id: 'comp-about-bio',
+    page: 'about',
+    type: 'text',
+    title: 'Engineering Philosophy',
+    content:
+      'I build software with obsessive attention to sub-pixel polish, resilient distributed data layers, and deterministic performance. From real-time cloud orchestrators to tactile editorial design systems, I believe the best engineering merges structural discipline with poetic visual clarity.',
+  },
+  {
+    id: 'comp-about-art',
+    page: 'about',
+    type: 'art',
+    title: 'Kinetic Orbital Construct',
+    artStyle: 'orbital-orb',
+    caption: 'Mid-Century Googie Planetary Coordinate System',
+  },
+  {
+    id: 'comp-home-spline',
+    page: 'home',
+    type: 'spline',
+    title: 'Interactive 3D Core',
+    caption: 'Real-time WebGL interactive geometric wireframe mesh',
+  },
+]
 
 export default {
   DEFAULT_SECTIONS,
   MOCK_RESUME_DATA,
   INITIAL_RESUME_DATA,
+  AXIOM_7_MOCK_DATA,
   MOCK_PORTFOLIO_CARDS,
   INITIAL_PORTFOLIO_CARDS,
+  INITIAL_WEB_COMPONENTS,
 }

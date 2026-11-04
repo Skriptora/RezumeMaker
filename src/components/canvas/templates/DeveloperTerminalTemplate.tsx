@@ -10,6 +10,7 @@ import {
   Code2,
   CheckCircle2,
 } from 'lucide-react'
+import { useResumeStore } from '../../../store/useResumeStore'
 
 interface DeveloperTerminalTemplateProps {
   cards: PortfolioProjectCard[]
@@ -22,7 +23,22 @@ export const DeveloperTerminalTemplate: React.FC<DeveloperTerminalTemplateProps>
   profile,
   animationTriggerKey,
 }) => {
+  const { selectedElementId, setSelectedElementId } = useResumeStore()
   const [activeTab, setActiveTab] = useState<'projects.tsx' | 'architecture.json' | 'metrics.sh'>('projects.tsx')
+
+  const getSelectableClass = (id: string, baseClass = '') => {
+    const isSelected = selectedElementId === id
+    return `${baseClass} cursor-pointer transition-all duration-150 ${
+      isSelected
+        ? 'ring-2 ring-[#FF6F3C] ring-offset-2 ring-offset-[#0a0e1a] shadow-[0_0_12px_rgba(255,111,60,0.5)] rounded relative z-20'
+        : 'hover:ring-1 hover:ring-[#FF6F3C]/50 hover:ring-offset-1 rounded'
+    }`
+  }
+
+  const handleSelect = (id: string) => (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setSelectedElementId(id)
+  }
   const [selectedTag, setSelectedTag] = useState<string>('All')
 
   const allTags = ['All', ...Array.from(new Set(cards.flatMap((c) => c.tags)))]
@@ -59,7 +75,11 @@ export const DeveloperTerminalTemplate: React.FC<DeveloperTerminalTemplateProps>
   return (
     <div className="rounded-xl border border-[#374151] bg-[#0a0e1a] text-[#e5e7eb] font-mono shadow-2xl overflow-hidden text-xs">
       {/* IDE Editor Titlebar */}
-      <div className="px-4 py-2.5 bg-[#0c111d] border-b border-[#374151] flex items-center justify-between select-none">
+      <div
+        id="template-terminal-titlebar"
+        onClick={handleSelect('template-terminal-titlebar')}
+        className={getSelectableClass('template-terminal-titlebar', 'px-4 py-2.5 bg-[#0c111d] border-b border-[#374151] flex items-center justify-between select-none')}
+      >
         <div className="flex items-center space-x-2">
           <span className="w-2.5 h-2.5 rounded-full bg-[#ef4444]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#fbbf24]" />
@@ -73,7 +93,10 @@ export const DeveloperTerminalTemplate: React.FC<DeveloperTerminalTemplateProps>
           {(['projects.tsx', 'architecture.json', 'metrics.sh'] as const).map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab)}
+              onClick={(e) => {
+                e.stopPropagation()
+                setActiveTab(tab)
+              }}
               className={`px-3 py-1 rounded text-[11px] transition-colors cursor-pointer flex items-center space-x-1.5 ${
                 activeTab === tab
                   ? 'bg-[#1e293b] text-[#60a5fa] border-b-2 border-[#3b82f6]'
@@ -90,7 +113,11 @@ export const DeveloperTerminalTemplate: React.FC<DeveloperTerminalTemplateProps>
       {/* Editor Workbench Layout (Left Sidebar + Main Editor Area) */}
       <div className="flex flex-col md:flex-row min-h-[500px]">
         {/* Left Explorer Sidebar */}
-        <div className="w-full md:w-56 bg-[#0c111d]/90 border-r border-[#374151]/80 p-3 space-y-3 flex-shrink-0">
+        <div
+          id="template-terminal-sidebar"
+          onClick={handleSelect('template-terminal-sidebar')}
+          className={getSelectableClass('template-terminal-sidebar', 'w-full md:w-56 bg-[#0c111d]/90 border-r border-[#374151]/80 p-3 space-y-3 flex-shrink-0')}
+        >
           <div className="text-[10px] uppercase font-bold tracking-wider text-[#9ca3af]/70 flex items-center space-x-1">
             <Folder className="w-3.5 h-3.5 text-[#3b82f6]" />
             <span>EXPLORER</span>
@@ -167,8 +194,13 @@ export const DeveloperTerminalTemplate: React.FC<DeveloperTerminalTemplateProps>
               {filteredCards.map((card, idx) => (
                 <motion.div
                   key={card.id}
+                  id={`template-terminal-card-${card.id}`}
+                  onClick={handleSelect(`template-terminal-card-${card.id}`)}
                   variants={itemVariants}
-                  className="rounded-lg border border-[#374151]/80 bg-[#1e293b]/50 p-4 space-y-3 hover:border-[#3b82f6]/50 transition-colors"
+                  className={getSelectableClass(
+                    `template-terminal-card-${card.id}`,
+                    'rounded-lg border border-[#374151]/80 bg-[#1e293b]/50 p-4 space-y-3 hover:border-[#3b82f6]/50 transition-colors'
+                  )}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                     <div className="space-y-1">
@@ -177,7 +209,11 @@ export const DeveloperTerminalTemplate: React.FC<DeveloperTerminalTemplateProps>
                           0{idx + 1}.
                         </span>
                         <span className="text-[#7c3aed] font-bold">export const</span>
-                        <span className="text-[#e5e7eb] font-bold text-sm tracking-wide">
+                        <span
+                          id={`template-terminal-card-${card.id}-title`}
+                          onClick={handleSelect(`template-terminal-card-${card.id}-title`)}
+                          className={getSelectableClass(`template-terminal-card-${card.id}-title`, 'text-[#e5e7eb] font-bold text-sm tracking-wide inline-block')}
+                        >
                           {card.title.replace(/\s+/g, '')}
                         </span>
                         <span className="text-[#9ca3af]">=</span>
@@ -187,7 +223,11 @@ export const DeveloperTerminalTemplate: React.FC<DeveloperTerminalTemplateProps>
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-[#9ca3af] leading-relaxed pl-6">
+                      <p
+                        id={`template-terminal-card-${card.id}-desc`}
+                        onClick={handleSelect(`template-terminal-card-${card.id}-desc`)}
+                        className={getSelectableClass(`template-terminal-card-${card.id}-desc`, 'text-xs text-[#9ca3af] leading-relaxed pl-6 p-0.5 rounded')}
+                      >
                         // {card.description}
                       </p>
                     </div>
@@ -206,7 +246,11 @@ export const DeveloperTerminalTemplate: React.FC<DeveloperTerminalTemplateProps>
                   </div>
 
                   {/* Code snippet / tags format */}
-                  <div className="pl-6 pt-1 flex flex-wrap items-center gap-1.5 text-[11px]">
+                  <div
+                    id={`template-terminal-card-${card.id}-tags`}
+                    onClick={handleSelect(`template-terminal-card-${card.id}-tags`)}
+                    className={getSelectableClass(`template-terminal-card-${card.id}-tags`, 'pl-6 pt-1 flex flex-wrap items-center gap-1.5 text-[11px] p-0.5 rounded')}
+                  >
                     <span className="text-[#fbbf24]">dependencies:</span>
                     <span className="text-[#9ca3af]">[</span>
                     {card.tags.map((t, i) => (
